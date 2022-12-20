@@ -76,8 +76,6 @@ io.on('connection', async (socket) => {
   //Escuchamos cuando el cliente envía un nuevo mensaje
   socket.on('nuevo-mensaje', async (msj) => {
     await contenedorMensajes.saveMessage(formatMessage(msj.email, msj.mensaje));
-
-    // //Emitimos el mensaje recibido a TODOS los clientes (incluído el que lo envió)
     const mensajes = await contenedorMensajes.getAll();
     io.emit('actualiza-mensajes', mensajes);
   });
